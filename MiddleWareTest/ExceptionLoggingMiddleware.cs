@@ -2,9 +2,6 @@
 using Microsoft.Azure.Functions.Worker.Middleware;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MiddleWareTest
@@ -15,14 +12,12 @@ namespace MiddleWareTest
         {
             try
             {
-                // Code before function execution here
                 await next(context);
-                // Code after function execution here
             }
             catch (Exception ex)
             {
-                var log = context.GetLogger<ExceptionLoggingMiddleware>();
-                log.LogWarning(ex, string.Empty);
+                var logger = context.GetLogger(context.FunctionDefinition.Name);
+                logger.LogError("Unexpected Error in {0}: {1}", context.FunctionDefinition.Name, ex.Message);
             }
         }
     }

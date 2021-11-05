@@ -1,7 +1,4 @@
-using Microsoft.Azure.Functions.Worker.Configuration;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using System.Threading.Tasks;
 
 namespace MiddleWareTest
 {
@@ -18,7 +15,7 @@ namespace MiddleWareTest
                 )
                 .Build();
 
-            host.RunAsync();
+            host.Run();
         }
     }
 }
