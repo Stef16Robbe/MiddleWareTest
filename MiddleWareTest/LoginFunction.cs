@@ -4,10 +4,10 @@ using Microsoft.Azure.Functions.Worker.Http;
 
 namespace MiddleWareTest
 {
-    public class Function1
+    public class LoginFunction
     {
-        [Function("Function1")]
-        public static HttpResponseData Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequestData req,
+        [Function("Login")]
+        public static HttpResponseData Run([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req,
             FunctionContext context)
         {
             throw new Exception("yo");

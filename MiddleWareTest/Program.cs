@@ -11,6 +11,7 @@ namespace MiddleWareTest
                     builder =>
                     {
                         builder.UseMiddleware<ExceptionLoggingMiddleware>();
+                        builder.UseMiddleware<GoogleAuthMiddleware>();
                     }
                 )
                 .Build();

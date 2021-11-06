@@ -10,13 +10,14 @@ namespace MiddleWareTest
     {
         public async Task Invoke(FunctionContext context, FunctionExecutionDelegate next)
         {
+            var logger = context.GetLogger(context.FunctionDefinition.Name);
             try
             {
+                logger.LogWarning("Executed ExceptionLoggingMiddleware");
                 await next(context);
             }
             catch (Exception ex)
             {
-                var logger = context.GetLogger(context.FunctionDefinition.Name);
                 logger.LogError("Unexpected Error in {0}: {1}", context.FunctionDefinition.Name, ex.Message);
             }
         }
