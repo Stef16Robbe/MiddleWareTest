@@ -28,10 +28,11 @@ namespace MiddleWareTest
             var googleJWT = HttpUtility.ParseQueryString(content).Get("credential");
 
             var validPayload = await GoogleJsonWebSignature.ValidateAsync(googleJWT);
-            // validPayload contains email, name etc...
-            // TODO:
-            // user management
 
+            // validPayload contains email, name etc...
+            // pass the current user email down to the function being called
+            context.Items.Add(new KeyValuePair<object, object>("Email", validPayload.Email));
+            
             await next(context);
         }
     }
