@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Hosting;
+using MiddleWareTest.Middleware;
 
 namespace MiddleWareTest
 {

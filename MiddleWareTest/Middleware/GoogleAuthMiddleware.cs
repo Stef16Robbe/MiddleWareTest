@@ -1,18 +1,13 @@
-﻿using Google.Apis.Auth;
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
-using Microsoft.Azure.Functions.Worker.Middleware;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Google.Apis.Auth;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Middleware;
+using Microsoft.Extensions.Logging;
 
-namespace MiddleWareTest
+namespace MiddleWareTest.Middleware
 {
     public class GoogleAuthMiddleware : IFunctionsWorkerMiddleware
     {
@@ -20,19 +15,19 @@ namespace MiddleWareTest
         {
             var logger = context.GetLogger(context.FunctionDefinition.Name);
             logger.LogWarning("Executed GoogleAuthMiddleware");
-            var req = MiddlewareHelper.GetHttpRequestData(context);
+            var req = context.GetHttpRequestData();
 
             // auth
             // https://developers.google.com/identity/gsi/web/guides/verify-google-id-token
             var content = await new StreamReader(req.Body).ReadToEndAsync();
-            var googleJWT = HttpUtility.ParseQueryString(content).Get("credential");
+            var googleJwt = HttpUtility.ParseQueryString(content).Get("credential");
 
-            var validPayload = await GoogleJsonWebSignature.ValidateAsync(googleJWT);
+            var validPayload = await GoogleJsonWebSignature.ValidateAsync(googleJwt);
 
             // validPayload contains email, name etc...
             // pass the current user email down to the function being called
             context.Items.Add(new KeyValuePair<object, object>("Email", validPayload.Email));
-            
+
             await next(context);
         }
     }

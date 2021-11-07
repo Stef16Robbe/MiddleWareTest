@@ -1,10 +1,10 @@
-﻿using Microsoft.Azure.Functions.Worker;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Middleware;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
 
-namespace MiddleWareTest
+namespace MiddleWareTest.Middleware
 {
     public class ExceptionLoggingMiddleware : IFunctionsWorkerMiddleware
     {
@@ -18,7 +18,7 @@ namespace MiddleWareTest
             }
             catch (Exception ex)
             {
-                logger.LogError("Unexpected Error in {0}: {1}", context.FunctionDefinition.Name, ex.Message);
+                logger.LogError("Unexpected Error in {FunctionName}: {ExceptionMessage}", context.FunctionDefinition.Name, ex.Message);
             }
         }
     }

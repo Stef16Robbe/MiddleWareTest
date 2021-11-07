@@ -2,7 +2,7 @@ using System;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 
-namespace MiddleWareTest
+namespace MiddleWareTest.Functions
 {
     public class LoginFunction
     {
@@ -11,7 +11,8 @@ namespace MiddleWareTest
             FunctionContext context)
         {
             // login magic
-            throw new Exception("Logged in. I can throw this exception cause I have exception handling in my Middleware B)");
+            throw new Exception(
+                "Logged in. I can throw this exception cause I have exception handling in my Middleware B)");
         }
     }
 }

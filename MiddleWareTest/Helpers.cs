@@ -1,9 +1,6 @@
-﻿using MiddleWareTest.Domain;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MiddleWareTest.Domain;
 
 namespace MiddleWareTest
 {
@@ -13,12 +10,13 @@ namespace MiddleWareTest
         {
             try
             {
-                return (AuthorizedAttribute)typeof(T).GetMethod(method).GetCustomAttributes(typeof(AuthorizedAttribute), false).FirstOrDefault();
+                return (AuthorizedAttribute) typeof(T).GetMethod(method)
+                    ?.GetCustomAttributes(typeof(AuthorizedAttribute), false).FirstOrDefault();
             }
             catch (SystemException)
             {
                 return null;
             }
-        }        
+        }
     }
 }
