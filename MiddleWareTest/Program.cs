@@ -12,7 +12,9 @@ namespace MiddleWareTest
                     builder =>
                     {
                         builder.UseMiddleware<ExceptionLoggingMiddleware>();
-                        builder.UseMiddleware<GoogleAuthMiddleware>();
+                        #if !DEBUG
+                            builder.UseMiddleware<GoogleAuthMiddleware>();
+                        #endif
                     }
                 )
                 .Build();
